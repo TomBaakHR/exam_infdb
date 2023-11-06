@@ -11,9 +11,9 @@ class Solution
         //List down all FoodItems containing the given name within the minimum and maximum prices given
 
         return db.FoodItems
-        .Where(fi => fi.Name.Contains(name) 
-                        && (decimal) fi.Price >= (decimal) minPrice 
-                        && (decimal) fi.Price <= (decimal) maxPrice)
+        .Where(fi => fi.Name.ToLower().Contains(name.ToLower()) 
+                        && fi.Price >= minPrice 
+                        && fi.Price <= maxPrice)
         .Select(fi => new Dish(fi.Name, fi.Price, fi.Unit));   
     }
  
@@ -113,6 +113,8 @@ class Solution
         //   customer two -> order3{customer2, firstCategory product3}; order4{customer2, secondCategory product4}
         //One or both given categories might NOT exist, in this case make sure an order is not placed, 
         //the two customers should be added anyways. 
+
+        List<Customer> customers = 
 
         return default(int); //change this line (it is now only used to avoid compiler error)  
     }
