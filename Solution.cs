@@ -58,7 +58,7 @@ class Solution
         //List down the bills: FoodItems, Order Quantity, Unit Price, Total,
         //for the first "number" of Customers (ordered based on Total). 
         //Return an Iqueryable<CustomerBill> which will let fetch exactly the "number" of bills
-        // return (from od in db.Orders
+        // var ret = (from od in db.Orders
         //         join fi in db.FoodItems on od.FoodItemID equals fi.ID
         //         select new {
         //             Name = fi.Name,
@@ -68,6 +68,8 @@ class Solution
         //         })
         //         .Select(res => new BillItem(res.Name, res.Price, res.Unit, res.Quantity))
 
+        // return ret;
+
         return default(IQueryable<CustomerBill>); //change this line (it is now only used to avoid compiler error)  
     }
 
@@ -75,6 +77,7 @@ class Solution
     {
         // List down dishes >>>NOT<<< sold at a given table
         // Ordering according to the dish price.
+
         return (
             from fi in db.FoodItems
             join od in db.Orders on fi.ID equals od.FoodItemID
