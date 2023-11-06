@@ -116,10 +116,7 @@ class Solution
 
         var c1 =    new Customer { Name = "John Doe", TableNumber = 999};
         var c2 =    new Customer { Name = "Jane Doe", TableNumber = 888};
-        
-        db.Customers.Add(c1);
-        db.Customers.Add(c2);
-
+    
         Category? cat1 = db.Categories.Where(cat => cat.Name.ToLower() == firstCategory.ToLower()).FirstOrDefault();
         Category? cat2 = db.Categories.Where(cat => cat.Name.ToLower() == secondCategory.ToLower()).FirstOrDefault();
 
@@ -133,6 +130,8 @@ class Solution
 
             db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p1] });
             db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p2] });
+        } else {
+        db.Customers.Add(c1);
         }
 
         if(cat2 != null){
@@ -143,6 +142,9 @@ class Solution
 
             db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat2[p3] });
             db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat2[p4] });
+        } else {
+            
+        db.Customers.Add(c2);
         }
 
         return db.SaveChanges();
