@@ -126,7 +126,7 @@ class Solution
             var rand = new Random();
 
         if(cat1 != null){
-            List<FoodItem> productsCat1 = db.FoodItems.Where(fi => fi.CategoryID == cat1.ID).ToList();ø
+            List<FoodItem> productsCat1 = db.FoodItems.Where(fi => fi.CategoryID == cat1.ID).ToList();
 
             int p1 = rand.Next(1, productsCat1.Count());
             int p2 = rand.Next(1, productsCat1.Count());
