@@ -1,4 +1,6 @@
 
+using System.Data;
+
 class Solution
 {
     //In DataFormats -> Dish
@@ -56,7 +58,13 @@ class Solution
     {
         // List down dishes >>>NOT<<< sold at a given table
         // Ordering according to the dish price.
-        
+        return (
+            from od in db.Orders
+            join cs in db.Customers on od.CustomerID equals cs.ID
+            join fi in db.FoodItems on od.FoodItemID equals fi.ID
+            where cs.TableNumber != tableNumber
+            select fi
+        ).Select(fi => new Dish(fi.Name, fi.Price, fi.Unit));
 
         return default(IQueryable<Dish>);  //change this line (it is now only used to avoid compiler error)  
     }
