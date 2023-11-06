@@ -68,13 +68,19 @@ class Solution
         // List down dishes >>>NOT<<< sold at a given table
         // Ordering according to the dish price.
 
-        return (
+        var soldAtTable = (
             from fi in db.FoodItems
             join od in db.Orders on fi.ID equals od.FoodItemID
             join cs in db.Customers on od.CustomerID equals cs.ID
-            where cs.TableNumber != tableNumber
-            group fi by fi.ID
-        ).Select(fi => new Dish(fi.First().Name, fi.First().Price, fi.First().Unit));
+            select new {
+                fi,
+                cs.TableNumber
+            }
+        ).Where(res => res.TableNumber == tableNumber).Select(res => res.fi).ToList();
+
+        var ret = db.FoodItems.Where(fi => !soldAtTable.Contains(fi)).Select(fi => new Dish(fi.Name, fi.Price, fi.Unit));
+
+        return ret;
 
         return default(IQueryable<Dish>);  //change this line (it is now only used to avoid compiler error)  
     }
