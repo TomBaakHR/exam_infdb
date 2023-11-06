@@ -1,5 +1,6 @@
 
 using System.Data;
+using Humanizer;
 
 class Solution
 {
@@ -75,9 +76,9 @@ class Solution
         // List down dishes >>>NOT<<< sold at a given table
         // Ordering according to the dish price.
         return (
-            from od in db.Orders
+            from fi in db.FoodItems
+            join od in db.Orders on fi.ID equals od.FoodItemID
             join cs in db.Customers on od.CustomerID equals cs.ID
-            join fi in db.FoodItems on od.FoodItemID equals fi.ID
             where cs.TableNumber != tableNumber
             group fi by fi.ID
         ).Select(fi => new Dish(fi.First().Name, fi.First().Price, fi.First().Unit));
