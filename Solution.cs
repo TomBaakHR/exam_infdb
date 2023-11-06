@@ -6,6 +6,15 @@ class Solution
     public static IQueryable<Dish> Q1(ExamContext db, string name, decimal minPrice, decimal maxPrice)
     {
         //List down all FoodItems containing the given name within the minimum and maximum prices given
+
+        var FoodItems = db.FoodItems
+        .Where(fi => fi.Name.Contains(name) && fi.Price >= minPrice && fi.Price <= maxPrice)
+        .ToList();
+
+        foreach (var item in FoodItems)
+        {
+            System.Console.WriteLine(item);
+        }
         
         return default(IQueryable<Dish>);  //change this line (it is now only used to avoid compiler error)         
     }
