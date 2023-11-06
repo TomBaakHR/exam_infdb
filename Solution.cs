@@ -10,7 +10,9 @@ class Solution
         //List down all FoodItems containing the given name within the minimum and maximum prices given
 
         return db.FoodItems
-        .Where(fi => fi.Name.Contains(name) && fi.Price >= minPrice && fi.Price <= maxPrice)
+        .Where(fi => fi.Name.Contains(name) 
+                        && (decimal) fi.Price >= (decimal) minPrice 
+                        && (decimal) fi.Price <= (decimal) maxPrice)
         .Select(fi => new Dish(fi.Name, fi.Price, fi.Unit));   
     }
  
