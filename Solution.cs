@@ -58,17 +58,7 @@ class Solution
         //List down the bills: FoodItems, Order Quantity, Unit Price, Total,
         //for the first "number" of Customers (ordered based on Total). 
         //Return an Iqueryable<CustomerBill> which will let fetch exactly the "number" of bills
-        // var ret = (from od in db.Orders
-        //         join fi in db.FoodItems on od.FoodItemID equals fi.ID
-        //         select new {
-        //             Name = fi.Name,
-        //             Price = fi.Price,
-        //             Unit = fi.Unit,
-        //             Quantity = od.Quantity
-        //         })
-        //         .Select(res => new BillItem(res.Name, res.Price, res.Unit, res.Quantity))
-
-        // return ret;
+        
 
         return default(IQueryable<CustomerBill>); //change this line (it is now only used to avoid compiler error)  
     }
@@ -100,6 +90,24 @@ class Solution
         Including (Sub) Category and MainCategory (DishWithCategories objects). Self Join
         HINT: Don't forget to add a category even if there is no food item for the given category. Outer Join
         */
+
+        var ret = (
+            from mainCat in db.Categories
+            join subCat in db.Categories on mainCat.ID equals subCat.CategoryID
+            join fi in db.FoodItems on subCat.ID equals fi.CategoryID
+            select new {
+                mainCat = mainCat.Name,
+                subCat = subCat.Name,
+                food = fi
+            }
+        ).Select(res => new DishWithCategories {
+            CategoryName = res.subCat,
+            MainCategory = res.mainCat,
+            Food = res.food == null ? null : new Dish(res.food.Name, res.food.Price, res.food.Unit)
+        });
+
+        return ret;
+
 
         return default(IQueryable<DishWithCategories>);  //change this line (it is now only used to avoid compiler error)        
    
