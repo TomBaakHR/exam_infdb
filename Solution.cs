@@ -117,26 +117,33 @@ class Solution
         var c1 =    new Customer { Name = "John Doe", TableNumber = 999};
         var c2 =    new Customer { Name = "Jane Doe", TableNumber = 888};
         
+        db.Customers.Add(c1);
+        db.Customers.Add(c2);
 
         Category? cat1 = db.Categories.Where(cat => cat.Name.ToLower() == firstCategory.ToLower()).FirstOrDefault();
         Category? cat2 = db.Categories.Where(cat => cat.Name.ToLower() == secondCategory.ToLower()).FirstOrDefault();
 
-        List<FoodItem> productsCat1 = db.FoodItems.Where(fi => fi.CategoryID == cat1.ID).ToList();
-        List<FoodItem> productsCat2 = db.FoodItems.Where(fi => fi.CategoryID == cat2.ID).ToList();
+            var rand = new Random();
 
-        var rand = new Random();
+        if(cat1 != null){
+            List<FoodItem> productsCat1 = db.FoodItems.Where(fi => fi.CategoryID == cat1.ID).ToList();ø
 
-        int p1 = rand.Next(1, productsCat1.Count());
-        int p2 = rand.Next(1, productsCat1.Count());
+            int p1 = rand.Next(1, productsCat1.Count());
+            int p2 = rand.Next(1, productsCat1.Count());
 
-        db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p1] });
-        db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p2] });
+            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p1] });
+            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p2] });
+        }
 
-        int p3 = rand.Next(1, productsCat2.Count());
-        int p4 = rand.Next(1, productsCat2.Count());
+        if(cat2 != null){
+            List<FoodItem> productsCat2 = db.FoodItems.Where(fi => fi.CategoryID == cat2.ID).ToList();
 
-        db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat2[p1] });
-        db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat2[p2] });
+            int p3 = rand.Next(1, productsCat2.Count());
+            int p4 = rand.Next(1, productsCat2.Count());
+
+            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat2[p3] });
+            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat2[p4] });
+        }
 
         return db.SaveChanges();
 
