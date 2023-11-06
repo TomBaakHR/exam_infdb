@@ -19,16 +19,30 @@ class Solution
     public static IQueryable<DishAndCategory> Q2(ExamContext db, int customerId)
     {
         //List down all FoodItems including the Category ordered by a Customer (CustomerID given as parameter)
-        var ret = (from fi in db.FoodItems
-                    join od in db.Orders on customerId equals od.CustomerID
-                    join cat in db.Categories on fi.CategoryID equals cat.ID
-                    where od.CustomerID == customerId
+        // var ret = (from fi in db.FoodItems
+        //             join od in db.Orders on customerId equals od.CustomerID
+        //             join cat in db.Categories on fi.CategoryID equals cat.ID
+        //             where od.CustomerID == customerId
+        //             select new{
+        //                 Name = fi.Name,
+        //                 Price = fi.Price,
+        //                 Category = cat.Name,
+        //                 Unit = fi.Unit
+        //             }).Select(res => new DishAndCategory(res.Name, res.Price, res.Unit, res.Category));
+
+        var ret = (
+            from cs in db.Customers
+            join od in db.Orders on cs.ID equals od.CustomerID
+            join fi in db.FoodItems on od.FoodItemID equals fi.ID
+            join cat in db.Categories on fi.CategoryID equals cat.ID
+            where cs.ID == customerId
                     select new{
                         Name = fi.Name,
                         Price = fi.Price,
                         Category = cat.Name,
                         Unit = fi.Unit
                     }).Select(res => new DishAndCategory(res.Name, res.Price, res.Unit, res.Category));
+        
     
         return ret;
     
