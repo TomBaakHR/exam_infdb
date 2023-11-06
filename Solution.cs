@@ -114,7 +114,7 @@ class Solution
         //One or both given categories might NOT exist, in this case make sure an order is not placed, 
         //the two customers should be added anyways. 
 
-        List<Customer> customers = 
+        // List<Customer> customers = 
 
         return default(int); //change this line (it is now only used to avoid compiler error)  
     }
