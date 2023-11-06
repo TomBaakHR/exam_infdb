@@ -117,8 +117,9 @@ class Solution
         //One or both given categories might NOT exist, in this case make sure an order is not placed, 
         //the two customers should be added anyways. 
 
-        var c1 =    new Customer { Name = "John Doe", TableNumber = 999};
-        var c2 =    new Customer { Name = "Jane Doe", TableNumber = 888};
+    	var latestCus = db.Customers.OrderByDescending(c => c.ID).FirstOrDefault();
+        var c1 =    new Customer { ID = latestCus.ID + 1, Name = "John Doe", TableNumber = 999};
+        var c2 =    new Customer { ID = latestCus.ID + 2, Name = "Jane Doe", TableNumber = 888};
     
         Category? cat1 = db.Categories.Where(cat => cat.Name.ToLower() == firstCategory.ToLower()).FirstOrDefault();
         Category? cat2 = db.Categories.Where(cat => cat.Name.ToLower() == secondCategory.ToLower()).FirstOrDefault();
