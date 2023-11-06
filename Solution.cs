@@ -7,16 +7,9 @@ class Solution
     {
         //List down all FoodItems containing the given name within the minimum and maximum prices given
 
-        var FoodItems = db.FoodItems
+        return db.FoodItems
         .Where(fi => fi.Name.Contains(name) && fi.Price >= minPrice && fi.Price <= maxPrice)
-        .ToList();
-
-        foreach (var item in FoodItems)
-        {
-            System.Console.WriteLine(item);
-        }
-        
-        return default(IQueryable<Dish>);  //change this line (it is now only used to avoid compiler error)         
+        .Select(fi => new Dish(fi.Name, fi.Price, null));   
     }
  
     //In DataFormats -> DishAndCategory
@@ -24,6 +17,7 @@ class Solution
     public static IQueryable<DishAndCategory> Q2(ExamContext db, int customerId)
     {
         //List down all FoodItems including the Category ordered by a Customer (CustomerID given as parameter)
+
    
         return default(IQueryable<DishAndCategory>);  //change this line (it is now only used to avoid compiler error)  
     }
