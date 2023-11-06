@@ -17,8 +17,17 @@ class Solution
     public static IQueryable<DishAndCategory> Q2(ExamContext db, int customerId)
     {
         //List down all FoodItems including the Category ordered by a Customer (CustomerID given as parameter)
-
-   
+        var ret = (from fi in db.FoodItems
+                    join od in db.Orders on customerId equals od.CustomerID
+                    join cat in db.Categories on fi.CategoryID equals cat.ID
+                    select new{
+                        Name = fi.Name,
+                        Price = fi.Price,
+                        Category = cat.Name
+                    }).Select(res => new DishAndCategory(res.Name, res.Price, null, res.Category));
+    
+        return ret;
+    
         return default(IQueryable<DishAndCategory>);  //change this line (it is now only used to avoid compiler error)  
     }
 
