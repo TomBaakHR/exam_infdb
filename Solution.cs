@@ -131,8 +131,8 @@ class Solution
             int p1 = rand.Next(1, productsCat1.Count());
             int p2 = rand.Next(1, productsCat1.Count());
 
-            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p1] });
-            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[p2] });
+            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[0] });
+            db.Orders.Add(new Order { Customer = c1, FoodItem = productsCat1[1] });
         } else {
         db.Customers.Add(c1);
         }
@@ -143,8 +143,8 @@ class Solution
             int p3 = rand.Next(1, productsCat2.Count());
             int p4 = rand.Next(1, productsCat2.Count());
 
-            db.Orders.Add(new Order { Customer = c2, FoodItem = productsCat2[p3] });
-            db.Orders.Add(new Order { Customer = c2, FoodItem = productsCat2[p4] });
+            db.Orders.Add(new Order { Customer = c2, FoodItem = productsCat2[0] });
+            db.Orders.Add(new Order { Customer = c2, FoodItem = productsCat2[1] });
         } else {
             
         db.Customers.Add(c2);
