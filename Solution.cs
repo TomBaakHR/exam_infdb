@@ -9,7 +9,7 @@ class Solution
 
         return db.FoodItems
         .Where(fi => fi.Name.Contains(name) && fi.Price >= minPrice && fi.Price <= maxPrice)
-        .Select(fi => new Dish(fi.Name, fi.Price, null));   
+        .Select(fi => new Dish(fi.Name, fi.Price, fi.Unit));   
     }
  
     //In DataFormats -> DishAndCategory
@@ -20,6 +20,7 @@ class Solution
         var ret = (from fi in db.FoodItems
                     join od in db.Orders on customerId equals od.CustomerID
                     join cat in db.Categories on fi.CategoryID equals cat.ID
+                    where od.CustomerID == customerId
                     select new{
                         Name = fi.Name,
                         Price = fi.Price,
